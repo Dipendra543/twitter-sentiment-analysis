@@ -2,8 +2,10 @@ from tweepy import Stream
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
 import json
-import text_classification as s
 import os
+
+import text_classification as tc
+
 # consumer key, consumer secret, access token, access secret.
 
 consumer_key = os.getenv("twitter_consumer_key")
@@ -20,7 +22,7 @@ class Listener(StreamListener):
     def on_data(self, data):
         all_data = json.loads(data)
         tweet = all_data["text"]
-        sentiment_value, confidence = s.find_sentiment(tweet)
+        sentiment_value, confidence = tc.find_sentiment(tweet)
         print(tweet, sentiment_value, confidence)
 
         if confidence * 100 >= 80:
@@ -36,6 +38,7 @@ class Listener(StreamListener):
     def on_connect(self):
         print("Successfully connected to streaming server")
 
+
     def on_error(self, status):
         # print(self.api)
         print("Error Status: ", status)
@@ -45,5 +48,5 @@ auth = OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_secret)
 
 twitterStream = Stream(auth, Listener())
-twitterStream.filter(track=["movie"])
+twitterStream.filter(track=["obama"])
 
