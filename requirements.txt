@@ -3,7 +3,7 @@ chardet==3.0.4
 idna==2.8
 joblib==0.13.2
 nltk==3.4.4
-numpy==1.17.0
+numpy==1.22.0
 oauthlib==3.0.2
 PySocks==1.7.0
 requests==2.22.0
